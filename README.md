@@ -12,7 +12,7 @@ A plartform for mentorship, guidannce, peer-to-peer support and self help
   - Contact
 
 # Project Overview
-TheMentHub is a project that tends to solve the problem of accountabily, mentorship, guidance and mutual support. Things can be so challenging if there is no proper guidance and some to relate with. This plarform seek for professionals and captains of industrials to help young ones to build their career by providing timely and accurate guidance. Individuals can also use the plartform for self accountability. to Connect-to-Course is a project that tends to solve the problem of going to different online platforms to learn. It helps to bring all your learning on a platform.
+TheMentHub is a project that tends to solve the problem of accountabily, mentorship, guidance and mutual support. Things can be so challenging if there is no proper guidance and some to relate with. This plarform seek for professionals and captains of industrials to help young ones to build their career by providing timely and accurate guidance. Individuals can also use the plartform for self accountability.
 
 For now the project only has motivational quotes and task setting features.. This MVP is developed in 2weeks as a portfolio project for full stack web development of backend specialization. Other features will be intergrated later..
 
