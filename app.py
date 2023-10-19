@@ -1,20 +1,72 @@
-from flask import Flask, render_template, request, redirect, url_for, session, jsonify, g, flash
-import os
-from models import User, Task
-import database
-import functionalties
-
+from flask import Flask, render_template, request, redirect, url_for, flash, session
+from flask_login import LoginManager, login_user, login_required, logout_user, UserMixin, current_user
+from werkzeug.security import check_password_hash
+from config import MONGO_URI, DB_NAME
+from database import connect_to_mongodb, create_user, get_user_by_username, create_task, get_tasks_by_user
 
 app = Flask(__name__)
+app.secret_key = '123'
+
+login_manager = LoginManager()
+login_manager.init_app(app)
+
+class User(UserMixin):
+    pass
+
+@login_manager.user_loader
+def load_user(user_id):
+    user = User()
+    user.id = user_id
+    return user
+
+connect_to_mongodb(MONGO_URI, DB_NAME)
+
+# Registration and login routes
+@app.route('/', methods=['GET', 'POST'])
+def index():
+    if request.method == 'POST':
+        if 'signupbtn' in request.form:
+            username = request.form['username']
+            password = request.form['password']
+            email = request.form['email']
+            create_user(username, password, email)
+            flash('Registration successful. Please log in.', 'success')
+            return redirect(url_for('index'))
+        elif 'loginbtn' in request.form:
+            username = request.form['username']
+            password = request.form['password']
+            user = get_user_by_username(username)
+            if user and check_password_hash(user.password, password):
+                login_user(user)
+                session['user_id'] = str(user.id)
+                flash('Logged in successfully.', 'success')
+                return redirect(url_for('userpage'))
+
+    return render_template('index.html')
+
+# User page for task management
+@app.route('/user')
+@login_required
+def userpage():
+    tasks = get_tasks_by_user(current_user)
+    return render_template('user_page.html', tasks=tasks)
+
+if __name__ == '__main__':
+    app.run(debug=True)
+
+
+
+
+
+
+
+
+
 
 app.secret_key = '123'
 username = 'Elizabeth'
 
-courses = database.load_courses()
-saved_courses = []
-random_courses = functionalties.generate_courses(courses)
-
-@app.route("/", methods=['GET', 'POST'])
+# @app.route("/", methods=['GET', 'POST'])
 def index():
     if request.method == 'POST':
         if 'signupbtn' in request.form:
@@ -44,18 +96,18 @@ def index():
                 flash("Invalid Login Details!", "failure")
                 return redirect(url_for('index'))
 
-    return render_template('index.html', random_courses=random_courses)
+    return render_template('index.html', Task=Task)
 
 
-@app.route("/user", methods=['GET', 'POST'])
+# @app.route("/user", methods=['GET', 'POST'])
 def userpage():
     if 'username' in session and 'password' in session:
         username = session['username']
         password = session['password']
         user_id = database.check_user_login(username, password)
-        saved_courses=database.load_bookmark_list(user_id)
+        task = database.get_task(user_id)
 
-        return render_template('User_page.html', username=username, random_courses=random_courses, saved_courses=saved_courses, user_id=user_id)
+        return render_template('User_page.html', username=username, task=task, mentor=mentor, user_id=user_id)
     else:
         return redirect(url_for('index'))
 
@@ -66,75 +118,3 @@ def logout():
     session.clear()
     return redirect(url_for('index'))
 
-
-@app.route('/search' , methods=['GET'])
-def search():
-    #Get the query to search for
-    query = request.args.get('query', '')
-
-    #Load courses from database
-    courses = database.load_courses()
-
-    #Search and return json
-    search_titles = functionalties.search_courses(courses, query)
-    return jsonify(results=search_titles)
-
-
-@app.route('/save' , methods=['POST'])
-def save():
-    #Retrieve the course url and username.
-    data = request.get_json(force=True)
-    course_id = data.get('id')
-    user_id = data.get('user_id')
-
-    #Save the course id to the database
-    database.save_course(user_id, course_id)
-
-    #return jsonify(results=saved_courses)
-    return redirect(url_for('userpage'))
-
-
-@app.route("/delete", methods=['POST'])
-def delete():
-    #Retrieve the course url and username.
-    data = request.get_json(force=True)
-    course_id = data.get('id')
-    user_id = data.get('user_id')
-    
-    #delete course
-    #app.logger.info(f"Deleting bookmark for user_id: {user_id}, course_id: {course_id}")
-    database.delete_bookmark(user_id, course_id)
-
-    return redirect(url_for('userpage'))
-
-
-@app.route('/courses_api')
-def list_courses():
-    courses_list = [dict(course._asdict()) for course in courses]
-
-    return jsonify(courses_list)
-
-
-
-@app.route('/landing_page', methods=['GET'])
-def landingPage():
-    return render_template('landing_page.html')
-
-
-# Define a route to render the template
-@app.route('/')
-def display_quote_carousel():
-    # Make a GET request to the API endpoint (replace with your actual API endpoint)
-    api_url = "https://type.fit/api/quotes"
-    response = requests.get(api_url)
-
-    # Check if the request was successful (status code 200)
-    if response.status_code == 200:
-        quotes = response.json()  # Assuming the API returns JSON data with quotes
-        return render_template('quote_carousel.html', quotes=quotes)
-    else:
-        return "Failed to retrieve quotes from the API", 500
-
-
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000, debug=True)
