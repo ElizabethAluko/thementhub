@@ -13,6 +13,7 @@ import SelfHelp from './views/SelfHelp';
 import MutualSupport from './views/MutualSupport';
 import Quotes from './components/Quotes';
 import Footer from './components/Footer';
+import TawkMessengerReact from '@tawk.to/tawk-messenger-react';
 
 function App() {
   const [tasks, setTasks] = useState([]);
@@ -30,6 +31,9 @@ function App() {
 
   return (
    <AuthProvider>
+    <TawkMessengerReact
+      propertyId="6557f23891e5c13bb5b12576"
+      widgetId="1hffokbtt"/>
     <Router>
       <div className="App">
         <Routes>
