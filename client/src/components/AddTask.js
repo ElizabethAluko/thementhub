@@ -6,6 +6,7 @@ const AddTask = ({ userId }) => {
   const [status, setStatus] = useState('Not Started');
   const [dueDate, setDueDate] = useState('');
 
+  const url = `https://thementhub-lc6w.onrender.com`;
     // Handle adding a task here (e.g., send the data to the server)
   const handleAddTask = async (event) => {
     event.preventDefault();
@@ -18,7 +19,7 @@ const AddTask = ({ userId }) => {
     };
 
   try {
-    const response = await fetch(`http://localhost:5000/task/${userId}/tasks`, {
+    const response = await fetch(url + `/task/${userId}/tasks`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
