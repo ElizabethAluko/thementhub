@@ -13,13 +13,14 @@ const Login = ({ onSuccess }) => {
 
   const navigate = useNavigate();
   const auth = useAuth();
+  const url = 'https://thementhub-lc6w.onrender.com';
   
   const handleLogin = async () => {
     try {
       const logindata = {email, password,};
 
       // Send a POST request to your server for authentication
-      const response = await fetch('http://localhost:5000/user/login', {
+      const response = await fetch(url + '/user/login', {
         method: 'POST',
         body: JSON.stringify(logindata),
 	headers: {

@@ -8,6 +8,8 @@ const Signup = ({ onSuccess }) => {
   const [role, setRole] = useState('');
   const [jobOrCourseTitle, setjobOrCourseTitle] = useState('');
 
+  const url = 'https://thementhub-lc6w.onrender.com';
+
 const handleSignup = async (event) => {
   event.preventDefault();
   // Implement your signup logic here
@@ -32,7 +34,7 @@ const handleSignup = async (event) => {
 
   // Send the user data to the server for registration
   try {
-    const response = await fetch('http://localhost:5000/user/register', {
+    const response = await fetch(url + '/user/register', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

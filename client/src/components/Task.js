@@ -2,12 +2,13 @@ import React from 'react';
 
 
 const Task = ({ key, userId, task }) => {
+  const url = 'https://thementhub-lc6w.onrender.com';
   const { _id, title, description, status, dueDate } = task;
 
   const handleDeleteTask = async (taskId) => {
     try {
       // Send API Delete Request
-      const response = await fetch(`http://localhost:5000/task/${userId}/tasks/${taskId}`, {
+      const response = await fetch(url + `/task/${userId}/tasks/${taskId}`, {
 	method: 'DELETE',
       });
       if (response.ok) {
@@ -26,7 +27,7 @@ const Task = ({ key, userId, task }) => {
   const handleStatusChange = async (userId, tasks, taskId) => {
     try {
       // Task update request.
-      const response = await fetch(`http://localhost:5000/task/${userId}/tasks/${taskId}`, {
+      const response = await fetch(url + `/task/${userId}/tasks/${taskId}`, {
         method: 'UPDATE',
       });
       alert('I reach here')
