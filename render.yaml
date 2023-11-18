@@ -1,0 +1,7 @@
+services:
+  - name: server
+    buildCommand: npm install
+    startCommand: npm start
+  - name: client
+    buildCommand: npm install
+    startCommand: npm start
