@@ -8,6 +8,8 @@ import io from 'socket.io-client';
 const TaskList = ({ user, socket, handleAddTask }) => {
   const [isModalOpen, setModalOpen] = useState(false);
   const [tasks, setTasks] = useState([]);
+  
+  const url = `https://thementhub-lc6w.onrender.com`;
 
 
   // Function to handle the initial task data retrieval
@@ -15,7 +17,7 @@ const TaskList = ({ user, socket, handleAddTask }) => {
     try {
       // Make an API request to fetch the initial tasks
       const userId = user._id;
-      const response = await fetch(`http://localhost:5000/task/${userId}/tasks`);
+      const response = await fetch(url + `/task/${userId}/tasks`);
       if (response.ok) {
         const data = await response.json();
         // Update the 'tasks' state with the retrieved data
@@ -32,7 +34,7 @@ const TaskList = ({ user, socket, handleAddTask }) => {
     try {
       // Task update request.
       const userId = user._id;
-      const response = await fetch(`http://localhost:5000/task/${userId}/tasks/${taskId}`, {
+      const response = await fetch(url + `/task/${userId}/tasks/${taskId}`, {
         method: 'UPDATE',
 	});
       alert('I reach here')
