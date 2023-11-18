@@ -1,8 +1,8 @@
 services:
   - name: server
-    buildCommand: cd server && npm install && npm build
-    startCommand: cd server && npm start
+    buildCommand: cd server && npm install && npm run build
+    startCommand: npm run start-server
 
   - name: client
-    buildCommand: cd client && npm install && npm build
-    startCommand: cd client && npm start
+    buildCommand: cd client && npm install && npm run build
+    startCommand: npm run start-client
