@@ -1,0 +1,11 @@
+{
+  "name": "my-fullstack-app",
+  "version": "1.0.0",
+  "scripts": {
+    "install-all": "npm install --prefix server && npm install --prefix client",
+    "start": "echo 'Use render.yaml to start services.'"
+  },
+  "dependencies": {
+    "shared-library": "^1.0.0"
+  }
+}
