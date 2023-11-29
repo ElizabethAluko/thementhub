@@ -71,8 +71,8 @@ exports.updateTaskForUser = async (req, res) => {
 
     // Find and update the task in the Task collection
     const updatedTask = await Task.findByIdAndUpdate(taskId, updatedData, { new: true });
-
-    await user.save();
+    // await updatedTask.save();
+    // await user.save();
 
     // For real life client side update
     // io.emit('taskUpdate', { taskId: newTask._id, action: 'update' });
