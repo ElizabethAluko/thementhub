@@ -31,6 +31,7 @@ const TaskList = ({ user, socket, handleAddTask }) => {
   };
  
   const handleStatusChange = async (taskId) => {
+    // Call edit task: handleDeleteTask(_id)
     try {
       // Task update request.
       const userId = user._id;

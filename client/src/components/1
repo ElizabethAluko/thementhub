@@ -56,15 +56,12 @@ const AddTask = ({ userId, task }) => {
       // Task update request.
       const response = await fetch(url + `/task/${userId}/tasks/${taskId}`, {
         method: 'PUT',
-	headers: {
-	  'Content-Type': 'application/json',
-	},
 	body: JSON.stringify(newTask),
       });
         const data = await response.json()
 
 	if (response.ok) {
-	  alert(`$Task is updated Successfully!`);
+	  alert(`${JSON.stringify(data)}Task is updated Successfully!`);
 	} else {
 	  alert(`Task failed to update: ${data.error}`);
 	}
