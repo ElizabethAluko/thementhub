@@ -77,7 +77,7 @@ exports.updateTaskForUser = async (req, res) => {
     // For real life client side update
     // io.emit('taskUpdate', { taskId: newTask._id, action: 'update' });
 
-    res.status(200).json(updatedTask);
+    res.status(200).json(updatedData);
   } catch (error) {
     res.status(500).json({ error: 'Error updating task for the user' });
   }
