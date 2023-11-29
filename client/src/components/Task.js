@@ -1,12 +1,20 @@
 import React, { useState } from 'react';
-import Modal from './Modal';                                      import AddTask from './AddTask';
+import Modal from './Modal';
+import AddTask from './AddTask';
 
 
 const Task = ({ key, userId, task }) => {
   const [isModalOpen, setModalOpen] = useState(false);
+  const closeModal = () => {
+    setModalOpen(false);
+  };
   
   const url = `https://thementhub-lc6w.onrender.com`;
   const { _id, title, description, status, dueDate } = task;
+
+  //format the date to remove the time
+  const fullDate = new Date(`${dueDate}`);
+  const formattedDate = fullDate.toLocaleDateString();
 
   const handleDeleteTask = async (taskId) => {
     try {
@@ -33,7 +41,7 @@ const Task = ({ key, userId, task }) => {
       <h2 className="text-xl font-bold">{title}</h2>
       <p className="text-gray-600">{description}</p>
       <p className="text-blue-500">{status}</p>
-      <p className="text-gray-500">{dueDate}</p>
+      <p className="text-gray-500">{formattedDate}</p>
       <div className="mt-4">
         <button onClick={() => setModalOpen(true)} className="bg-green-500 text-white p-2 rounded-md hover:bg-green-600">
           Edit
@@ -43,8 +51,8 @@ const Task = ({ key, userId, task }) => {
         </button>
       </div>
 
-    <Modal isOpen={isModalOpen} onClose={() => setModalOpen(false)}>
-      <AddTask userId={userId} task={task} />
+    <Modal isOpen={isModalOpen} onClose={closeModal}>
+      <AddTask userId={userId} task={task} closeModal={closeModal} />
     </Modal>
 
     </div>

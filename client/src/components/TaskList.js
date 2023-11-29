@@ -38,7 +38,6 @@ const TaskList = ({ user, socket, handleAddTask }) => {
       const response = await fetch(url + `/task/${userId}/tasks/${taskId}`, {
         method: 'UPDATE',
 	});
-      alert('I reach here')
       if (response.ok) {
 	alert('Task is updated Successfully!');
       } else {

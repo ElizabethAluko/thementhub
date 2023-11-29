@@ -68,16 +68,13 @@ exports.updateTaskForUser = async (req, res) => {
       return res.status(404).json({ error: 'User not found' });
     }
 
-
     // Find and update the task in the Task collection
     const updatedTask = await Task.findByIdAndUpdate(taskId, updatedData, { new: true });
-    // await updatedTask.save();
-    // await user.save();
 
     // For real life client side update
     // io.emit('taskUpdate', { taskId: newTask._id, action: 'update' });
 
-    res.status(200).json(updatedData);
+    res.status(200).json(updatedTask);
   } catch (error) {
     res.status(500).json({ error: 'Error updating task for the user' });
   }

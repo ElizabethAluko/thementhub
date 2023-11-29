@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 
-const AddTask = ({ userId, task }) => {
+const AddTask = ({ userId, task, closeModal }) => {
   // Initialize state based on the existence of the task prop
   const [title, setTitle] = useState(task ? task.title || '' : '');
   const [description, setDescription] = useState(task ? task.description || '' : '');
   const [status, setStatus] = useState(task ? task.status || 'Not Started' : 'Not Started');
   const [dueDate, setDueDate] = useState(task ? task.dueDate || '' : '');
 
+  // const [isModalOpen, setModalOpen] = useState(true);
 
   const url = `https://thementhub-lc6w.onrender.com`;
     // Handle adding a task here (e.g., send the data to the server)
@@ -64,7 +65,8 @@ const AddTask = ({ userId, task }) => {
         const data = await response.json()
 
 	if (response.ok) {
-	  alert(`$Task is updated Successfully!`);
+	  closeModal();
+	  alert('Task is updated Successfully!');
 	} else {
 	  alert(`Task failed to update: ${data.error}`);
 	}
