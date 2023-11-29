@@ -70,18 +70,7 @@ exports.updateTaskForUser = async (req, res) => {
 
 
     // Find and update the task in the Task collection
-    const updatedTask = await Task.findByIdAndUpdate(taskId, updatedData, { new: true });
-
-    // Update user's task references if needed
-    //if (updatedData.status) {
-      // Example: If you update the task status, update the user's tasks array
-      //await User.findByIdAndUpdate(userId, {
-        //$pull: { tasks: taskId },
-      //});
-    //}
-
-    // Update task properties
-    // task.set(req.body);
+    const updatedTask = await Task.findByIdAndUpdate(taskId, updatedData, { new: false });
 
     await user.save();
 
@@ -94,7 +83,7 @@ exports.updateTaskForUser = async (req, res) => {
   }
 };
 
-// taskController.js
+// Detele task
 exports.deleteTaskForUser = async (req, res) => {
   try {
     const userId = req.params.userId;

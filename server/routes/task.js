@@ -20,6 +20,6 @@ router.put('/:userId/tasks/:taskId', taskController.updateTaskForUser);
 router.delete('/:userId/tasks/:taskId', taskController.deleteTaskForUser);
 
 // Route to get tasks by status
-// router.get('/tasks/status/:status', requireAuth, taskController.getTasksByStatus);
+router.get('/tasks/status/:status', taskController.getTasksByStatus);
 
 module.exports = router;
