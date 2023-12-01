@@ -12,6 +12,7 @@ import Team from '../components/Team';
 import Sidebar from '../components/Sidebar';
 import AddTask from '../components/AddTask';
 import TaskList from '../components/TaskList';
+import TasksByStatus from '../components/TasksByStatus';
 import { useAuth } from '../components/useAuth';
 import Navigation from '../components/Navigation';
 import io from 'socket.io-client';
@@ -100,6 +101,8 @@ function Dashboard() {
      <h1 className="font-bold text-blue-700 text-2xl text-center mt-8 mb-5 mx-4">Task List</h1>
      <TaskList socket={socket} user={user} />
 <br /><br /><br />
+
+    <TasksByStatus userId={user._id} />
 	
     </div>
   );
