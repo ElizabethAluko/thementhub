@@ -34,6 +34,7 @@ exports.createTaskForUser = async (req, res) => {
   }
 };
 
+
 // Get all tasks for a specific user
 exports.getTasksForUser = async (req, res) => {
   const userId = req.params.userId;
@@ -52,10 +53,34 @@ exports.getTasksForUser = async (req, res) => {
 
     res.status(200).json(userTasks);
   } catch (error) {
-    res.status(500).json({ error: `Error fetching tasks for the user: ${error}` });
+    res.status(500).json({ error: `Error fetching tasks for the user` });
   }
 };
 
+
+// Get tasks by status for the specified user
+exports.getTasksByStatus = async (req, res) => {
+  try {
+    const { userId, status } = req.params;
+
+    // Find user by Id
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ error; 'User not found' });
+    }
+
+    // Fetch tasks with the specified status for the user
+    const tasks = await Task.find({ _id: { $in: user.tasks }, status });
+
+    res.status(200).json(tasks);
+  } catch (error) {
+    res.status(500).json({ error: 'Error fetching tasks by user and status' });
+  }
+};
+
+
+// Edit task information
 exports.updateTaskForUser = async (req, res) => {
   try {
     const userId = req.params.userId;
@@ -80,6 +105,7 @@ exports.updateTaskForUser = async (req, res) => {
   }
 };
 
+
 // Detele task
 exports.deleteTaskForUser = async (req, res) => {
   try {
@@ -96,10 +122,6 @@ exports.deleteTaskForUser = async (req, res) => {
     await User.findByIdAndUpdate(userId, {
       $pull: { tasks: taskId },
     });
-
-    // if (!task) {
-      // return res.status(404).json({ error: 'Task not found' });
-    // }
 
     await user.save();
     // Emit a 'taskUpdate' event to notify clients about the task deletion
