@@ -67,7 +67,7 @@ exports.getTasksByStatus = async (req, res) => {
     const user = await User.findById(userId);
 
     if (!user) {
-      return res.status(404).json({ error; 'User not found' });
+      return res.status(404).json({ error: 'User not found' });
     }
 
     // Fetch tasks with the specified status for the user
