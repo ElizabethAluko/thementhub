@@ -71,13 +71,14 @@ exports.getTasksByStatus = async (req, res) => {
     }
 
     if (status == 'All') {
-      getTasksForUser(userId);
+      return getTasksForUser(userId);
     }
 
     // Fetch tasks with the specified status for the user
+    else {
     const tasks = await Task.find({ _id: { $in: user.tasks }, status });
-
     res.status(200).json(tasks);
+    }
   } catch (error) {
     res.status(500).json({ error: 'Error fetching tasks by user and status' });
   }
