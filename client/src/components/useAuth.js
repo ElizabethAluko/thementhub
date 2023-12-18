@@ -13,11 +13,11 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
 
   const login = (userData) => {
-    // const userDataJ = JSON.parse(userData);
-    setUser(userData);
-
+   localStorage.setItem('userData', JSON.stringify(userData));
+   setUser(userData);
    // localStorage.setItem('userData', userData);
-   Cookies.set('userData', userData);
+   // Cookies.set('userData', userData);
+
   };
 
   const logout = () => {
@@ -29,23 +29,30 @@ export const AuthProvider = ({ children }) => {
     Cookies.remove('userData');
   };
 
-  const initializeAuth = () => {
+  // const initializeAuth = () => {
    //  const savedUserData = localStorage.getItem('userData');
-    const savedUserData = Cookies.get('userData');
-    if (savedUserData) {
-      setUser(savedUserData);
-    }
-  };
+    //const savedUserData = Cookies.get('userData');
+    //if (savedUserData) {
+      //setUser(savedUserData);
+    //}
+  //};
 
+  //useEffect(() => {
+    //initializeAuth();
+  //}, []);
   useEffect(() => {
-    initializeAuth();
+    // Check if user data exists in localStorage when the app starts
+    const storedUserData = localStorage.getItem('userData');
+    if (storedUserData) {
+      //const parsedUserData = JSON.parse(storedUserData);
+      setUser(storedUserData);
+    }
   }, []);
 
   const value = {
     user,
     login,
     logout,
-    initializeAuth,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

@@ -13,6 +13,7 @@ import Sidebar from '../components/Sidebar';
 import AddTask from '../components/AddTask';
 import TaskList from '../components/TaskList';
 import TasksByStatus from '../components/TasksByStatus';
+import { AuthProvider } from '../components/useAuth';
 import { useAuth } from '../components/useAuth';
 import Navigation from '../components/Navigation';
 import io from 'socket.io-client';
@@ -28,17 +29,11 @@ function Dashboard() {
   
   const socket = io('http://localhost:5000/');
 
-  //useEffect(() => {
-    //initializeAuth();
-  //}, [initializeAuth]);
-
-  // useEffect(() => {  
     if (!user) {
       // Handle user not being logged in.
       navigate('/');
       return null;
     }
-  // }, [user, navigate]);
 
   const openLoginModal = () => {setLoginModalOpen(true);};
   const closeLoginModal = () => {setLoginModalOpen(false);};

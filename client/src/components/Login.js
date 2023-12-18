@@ -36,6 +36,7 @@ const Login = ({ onSuccess }) => {
 	
     	openSuccessModal();
 	// navigate('/dashboard');
+	// window.location.href = "./dashboard";
 	setTimeout(() => {
     	  navigate('/dashboard');
   	}, 2000);

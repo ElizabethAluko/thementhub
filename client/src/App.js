@@ -9,6 +9,7 @@ import Home from './views/Home';
 import Dashboard from './views/Dashboard';
 import BecomeMentor from './views/BecomeMentor';
 import BeMentored from './views/BeMentored';
+import UserProfile from './views/Profile';
 import SelfHelp from './views/SelfHelp';
 import MutualSupport from './views/MutualSupport';
 import Quotes from './components/Quotes';
@@ -44,6 +45,7 @@ function App() {
 	  <Route path="/SelfHelp" element={<SelfHelp />} />
 	  <Route path="/MutualSupport" element={<MutualSupport />} />
 	  <Route path="/about" element={<About />} />
+	  <Route path="/dashboard/Profile" element={<UserProfile />} />
         </Routes>
 	<Footer />
       </div>

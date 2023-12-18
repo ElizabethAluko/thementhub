@@ -133,10 +133,7 @@ function Navigation({ openLoginModal, user, logout }) {
 	    <div>
 	    <hr />
             <p className="block text-white py-2">{user.firstName}</p>
-	    <button onClick={logout} className="text-white pb-4 hover:underline">
-	      Profile
-            </button>
-	    <br />
+	    <Link to="/dashboard/Profile" className="block text-white py-2">Profile</Link>
             <button onClick={logout} className="text-white hover:underline">
               Logout
             </button>
